@@ -1,0 +1,14 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /static/
+Disallow: /private/
+
+# Host
+Host: https://suongwedding.com
+
+# Sitemaps
+Sitemap: https://suongwedding.com/sitemap.xml

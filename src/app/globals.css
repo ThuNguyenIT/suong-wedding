@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --background: 0 0% 100%;
@@ -118,16 +118,16 @@ body {
 
 @keyframes dotTyping {
   0% {
-    content: "";
+    content: '';
   }
   33% {
-    content: ".";
+    content: '.';
   }
   66% {
-    content: "..";
+    content: '..';
   }
   100% {
-    content: "...";
+    content: '...';
   }
 }
 
@@ -135,7 +135,7 @@ body {
   display: inline-block;
   text-align: left;
   white-space: pre;
-  content: "";
+  content: '';
   animation: dotTyping 1.2s steps(3, jump-none) infinite;
 }
 

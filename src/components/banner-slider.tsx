@@ -1,10 +1,10 @@
-"use client";
+'use client'
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from 'framer-motion'
 
-import EmblaCarousel from "./embla-carousel";
-import BannerSlide from "./banner-slide";
-import { BANNER_IMAGES } from "@/constants/common";
+import EmblaCarousel from './embla-carousel'
+import BannerSlide from './banner-slide'
+import { BANNER_IMAGES } from '@/constants/common'
 
 export default function BannerSlider() {
   return (
@@ -22,5 +22,5 @@ export default function BannerSlider() {
         </EmblaCarousel>
       </motion.div>
     </AnimatePresence>
-  );
+  )
 }

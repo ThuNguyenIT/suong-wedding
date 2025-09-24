@@ -1,10 +1,10 @@
-"use client";
+'use client'
 
-import Script from "next/script";
+import Script from 'next/script'
 
 interface AnalyticsProps {
-  gaId?: string;
-  gtmId?: string;
+  gaId?: string
+  gtmId?: string
 }
 
 export default function Analytics({
@@ -16,11 +16,8 @@ export default function Analytics({
       {/* Google Analytics */}
       {gaId && (
         <>
-          <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
-            strategy="afterInteractive"
-          />
-          <Script id="google-analytics" strategy="afterInteractive">
+          <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} strategy='afterInteractive' />
+          <Script id='google-analytics' strategy='afterInteractive'>
             {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
@@ -37,7 +34,7 @@ export default function Analytics({
       {/* Google Tag Manager */}
       {gtmId && (
         <>
-          <Script id="google-tag-manager" strategy="afterInteractive">
+          <Script id='google-tag-manager' strategy='afterInteractive'>
             {`
               (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
               new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -51,7 +48,7 @@ export default function Analytics({
 
       {/* Facebook Pixel (Optional) */}
       {process.env.NEXT_PUBLIC_FACEBOOK_APP_ID && (
-        <Script id="facebook-pixel" strategy="afterInteractive">
+        <Script id='facebook-pixel' strategy='afterInteractive'>
           {`
             !function(f,b,e,v,n,t,s)
             {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -67,5 +64,5 @@ export default function Analytics({
         </Script>
       )}
     </>
-  );
+  )
 }

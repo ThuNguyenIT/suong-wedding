@@ -1,1 +1,1 @@
-export * from "./loading-back-drop";
+export * from './loading-back-drop'

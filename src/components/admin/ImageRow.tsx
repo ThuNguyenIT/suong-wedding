@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { Trash2, CircleCheckBig, CircleOff, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { ConfirmationTooltip } from '@/components/ui/confirmation-tooltip'
 import { Image as ImageMeta } from '@/types'
 
 interface ImageRowProps {
@@ -61,13 +62,20 @@ export function ImageRow({ image, index, isPending, onToggleStatus, onDelete }: 
       </td>
       <td className='text-center p-4'>
         <div className='flex gap-1'>
-          <Button size='icon' onClick={() => onDelete(image.id)} className='w-full h-full' disabled={isPending}>
-            {isPending ? (
-              <Loader2 className='h-5 w-5 animate-spin text-gray-500' />
-            ) : (
-              <Trash2 className='h-5 w-5 text-red-500' />
-            )}
-          </Button>
+          <ConfirmationTooltip
+            onConfirm={() => onDelete(image.id)}
+            onCancel={() => {}}
+            confirmText='Xóa'
+            cancelText='Hủy'
+          >
+            <Button size='icon' className='w-full h-full' disabled={isPending}>
+              {isPending ? (
+                <Loader2 className='h-5 w-5 animate-spin text-gray-500' />
+              ) : (
+                <Trash2 className='h-5 w-5 text-red-500' />
+              )}
+            </Button>
+          </ConfirmationTooltip>
         </div>
       </td>
     </motion.tr>

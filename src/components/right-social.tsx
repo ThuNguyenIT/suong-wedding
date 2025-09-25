@@ -6,7 +6,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { Button } from '@/components/ui/button'
 import { useIsMobile } from '@/hooks'
 import { cn } from '@/lib/utils'
-import { BRAND_NAME, FACEBOOK_URL, MOBILE_NUMBER } from '@/constants/common'
+import { ADDRESS_MAP, BRAND_NAME, FACEBOOK_URL, MOBILE_NUMBER } from '@/constants/common'
 
 export default function RightSocial() {
   const isMobile = useIsMobile()
@@ -30,11 +30,21 @@ export default function RightSocial() {
       tooltip: `Chat với ${BRAND_NAME} qua Facebook`,
       handleClick: (url: string) => window.open(url, '_blank'),
     },
+    {
+      src: '/svg/map.svg',
+      alt: 'Map',
+      url: ADDRESS_MAP,
+      tooltip: `Vị trí của ${BRAND_NAME}`,
+      handleClick: (url: string) => window.open(url, '_blank'),
+    },
   ]
+
+  const width = isMobile ? 80 : 80
+  const height = isMobile ? 80 : 80
 
   return (
     <TooltipProvider>
-      <div className='fixed bottom-4 right-4 z-50 flex flex-col gap-2'>
+      <div className='fixed bottom-10 right-10 z-50 flex flex-col gap-4'>
         {socialIcons
           .filter((item) => item.url && item.url.trim() !== '')
           .map((item, index) => (
@@ -43,9 +53,18 @@ export default function RightSocial() {
                 <Button
                   onClick={() => item.url && item.handleClick(item.url)}
                   size='icon'
-                  className='relative h-12 w-12 rounded-full shadow-lg border border-white'
+                  className={cn(
+                    'relative rounded-full shadow-lg border border-white',
+                    isMobile ? 'h-16 w-16' : 'h-16 w-16'
+                  )}
                 >
-                  <Image src={item.src} alt={item.alt} width={40} height={40} className={cn('', 'animate-phone')} />
+                  <Image
+                    src={item.src}
+                    alt={item.alt}
+                    width={width}
+                    height={height}
+                    className={cn('', 'animate-phone')}
+                  />
                   <span className={cn('absolute inset-0 rounded-full', 'bg-white animate-pulse-ring')} />
                 </Button>
               </TooltipTrigger>

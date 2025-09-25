@@ -6,6 +6,7 @@ import { Upload, Check, X, CircleCheckBig, CircleOff, Loader2 } from 'lucide-rea
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { ConfirmationTooltip } from '@/components/ui/confirmation-tooltip'
 import { PendingImage } from './types'
 
 interface PendingImageRowProps {
@@ -95,13 +96,21 @@ export function PendingImageRow({
               <Check className='h-5 w-5 text-green-500' />
             )}
           </Button>
-          <Button size='icon' onClick={() => onDelete(pendingImage.id)} className='gap-1' disabled={isPending}>
-            {isPending ? (
-              <Loader2 className='h-5 w-5 animate-spin text-gray-500' />
-            ) : (
-              <X className='h-5 w-5 text-red-500' />
-            )}
-          </Button>
+          <ConfirmationTooltip
+            onConfirm={() => onDelete(pendingImage.id)}
+            onCancel={() => {}}
+            message={`Bạn có chắc chắn muốn hủy thêm hình ảnh ID ${pendingImage.id}?`}
+            confirmText='Hủy'
+            cancelText='Không'
+          >
+            <Button size='icon' className='gap-1' disabled={isPending}>
+              {isPending ? (
+                <Loader2 className='h-5 w-5 animate-spin text-gray-500' />
+              ) : (
+                <X className='h-5 w-5 text-red-500' />
+              )}
+            </Button>
+          </ConfirmationTooltip>
         </div>
       </td>
     </motion.tr>

@@ -85,11 +85,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/favicon.ico', type: 'image/png' },
+      { url: '/fav.ico', sizes: 'any' },
+      { url: '/fav.ico', type: 'image/png' },
     ],
-    apple: [{ url: '/favicon.ico', sizes: '180x180', type: 'image/png' }],
-    shortcut: '/favicon.ico',
+    apple: [{ url: '/fav.ico', sizes: '180x180', type: 'image/png' }],
+    shortcut: '/fav.ico',
   },
   robots: {
     index: true,

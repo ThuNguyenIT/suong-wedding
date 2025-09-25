@@ -132,6 +132,13 @@ export function useImageTable(initialBanners: ImageMeta[], position: Position) {
     [startTransition]
   )
 
+  const confirmRemoveImage = useCallback(
+    (id: number, isPendingImage = false) => {
+      removeImage(id, isPendingImage)
+    },
+    [removeImage]
+  )
+
   const updatePendingImage = useCallback((id: number, updates: Partial<PendingImage>) => {
     setPending((prev) => prev.map((r) => (r.id === id ? { ...r, ...updates } : r)))
   }, [])
@@ -146,6 +153,7 @@ export function useImageTable(initialBanners: ImageMeta[], position: Position) {
     commitPendingImage,
     toggleImageStatus,
     removeImage,
+    confirmRemoveImage,
     updatePendingImage,
   }
 }

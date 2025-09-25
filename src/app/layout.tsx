@@ -26,8 +26,8 @@ const instrumentSerif = Instrument_Serif({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Sương Wedding - Dịch Vụ Cưới Hỏi Chuyên Nghiệp',
-    template: '%s | Sương Wedding',
+    default: `${process.env.NEXT_PUBLIC_APP_NAME} - Dịch Vụ Cưới Hỏi Chuyên Nghiệp`,
+    template: `%s | ${process.env.NEXT_PUBLIC_APP_NAME}`,
   },
   description:
     'Sương Wedding cung cấp dịch vụ cưới hỏi chuyên nghiệp với thiết kế đẹp mắt, trang trí cưới hỏi độc đáo và dịch vụ hoàn hảo. Liên hệ ngay để có ngày cưới mơ ước!',
@@ -39,43 +39,57 @@ export const metadata: Metadata = {
     'dịch vụ cưới',
     'wedding decoration',
     'cưới hỏi chuyên nghiệp',
-    'Sương Wedding',
+    `${process.env.NEXT_PUBLIC_APP_NAME}`,
   ],
-  authors: [{ name: 'Sương Wedding' }],
-  creator: 'Sương Wedding',
-  publisher: 'Sương Wedding',
+  authors: [{ name: `${process.env.NEXT_PUBLIC_APP_NAME}` }],
+  creator: `${process.env.NEXT_PUBLIC_APP_NAME}`,
+  publisher: `${process.env.NEXT_PUBLIC_APP_NAME}`,
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || '/'),
-  alternates: {
-    canonical: '/',
-  },
   openGraph: {
     type: 'website',
     locale: 'vi_VN',
     url: '/',
-    title: 'Sương Wedding - Dịch Vụ Cưới Hỏi Chuyên Nghiệp',
+    title: `${process.env.NEXT_PUBLIC_APP_NAME} - Dịch Vụ Cưới Hỏi Chuyên Nghiệp`,
     description:
       'Sương Wedding cung cấp dịch vụ cưới hỏi chuyên nghiệp với thiết kế đẹp mắt, trang trí cưới hỏi độc đáo và dịch vụ hoàn hảo.',
-    siteName: 'Sương Wedding',
+    siteName: `${process.env.NEXT_PUBLIC_APP_NAME}`,
     images: [
       {
-        url: '/images/backgrounds/wedding-1.jpg',
+        url: '/logo.png',
         width: 1200,
         height: 630,
-        alt: 'Sương Wedding - Dịch vụ cưới hỏi chuyên nghiệp',
+        alt: `${process.env.NEXT_PUBLIC_APP_NAME} - Dịch vụ cưới hỏi chuyên nghiệp`,
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Sương Wedding - Dịch Vụ Cưới Hỏi Chuyên Nghiệp',
+    site: '@suongwedding',
+    creator: '@suongwedding',
+    title: `${process.env.NEXT_PUBLIC_APP_NAME} - Dịch Vụ Cưới Hỏi Chuyên Nghiệp`,
     description:
       'Sương Wedding cung cấp dịch vụ cưới hỏi chuyên nghiệp với thiết kế đẹp mắt, trang trí cưới hỏi độc đáo và dịch vụ hoàn hảo.',
-    images: ['/images/backgrounds/wedding-1.jpg'],
+    images: ['/logo.png'],
+  },
+  alternates: {
+    canonical: process.env.NEXT_PUBLIC_APP_URL || '/',
+    languages: {
+      'vi-VN': process.env.NEXT_PUBLIC_APP_URL || '/',
+      'en-US': process.env.NEXT_PUBLIC_APP_URL || '/',
+    },
+  },
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon.ico', type: 'image/png' },
+    ],
+    apple: [{ url: '/favicon.ico', sizes: '180x180', type: 'image/png' }],
+    shortcut: '/favicon.ico',
   },
   robots: {
     index: true,
@@ -89,7 +103,18 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: process.env.GOOGLE_SITE_VERIFICATION || '/',
+    google: process.env.GOOGLE_SITE_VERIFICATION || '',
+    yandex: process.env.YANDEX_SITE_VERIFICATION || '',
+  },
+  manifest: '/manifest.json',
+  other: {
+    'mobile-web-app-capable': 'yes',
+    'apple-mobile-web-app-capable': 'yes',
+    'apple-mobile-web-app-status-bar-style': 'default',
+    'apple-mobile-web-app-title': process.env.NEXT_PUBLIC_APP_NAME || '',
+    'application-name': process.env.NEXT_PUBLIC_APP_NAME || '',
+    'msapplication-TileColor': '#ffffff',
+    'theme-color': '#ffffff',
   },
 }
 

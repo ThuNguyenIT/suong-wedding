@@ -26,6 +26,7 @@ const nextConfig: NextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     loader: 'default',
     unoptimized: true,
+    remotePatterns: [new URL('https://my-store-id.public.blob.vercel-storage.com/**')],
   },
   async headers() {
     return [

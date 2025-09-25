@@ -145,7 +145,6 @@ body {
   margin: 0;
   padding: 0;
   overscroll-behavior: none; /* Prevent iOS from dragging excessively */
-  background-color: black; /* suitable for the theme */
 }
 
 .carousel-container.relative.w-full > .overflow-hidden {

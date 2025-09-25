@@ -4,27 +4,14 @@
   "description": "Sương Wedding cung cấp dịch vụ cưới hỏi chuyên nghiệp với thiết kế đẹp mắt, trang trí cưới hỏi độc đáo và dịch vụ hoàn hảo",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#847445",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
   "orientation": "portrait-primary",
   "scope": "/",
   "lang": "vi",
   "categories": ["lifestyle", "wedding", "event"],
   "icons": [
-    {
-      "src": "/favicon.ico",
-      "sizes": "16x16 32x32",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "/favicon.webp",
-      "sizes": "192x192",
-      "type": "image/webp"
-    },
-    {
-      "src": "/logo.webp",
-      "sizes": "512x512",
-      "type": "image/webp"
-    }
+    { "src": "/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png" }
   ]
 }

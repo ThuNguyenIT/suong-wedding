@@ -4,11 +4,19 @@ export const MOBILE_NUMBER = '0359998753'
 
 export const FACEBOOK_URL = 'https://www.facebook.com/suongwedding'
 
-export const BANNER_IMAGES = [
-  '/images/backgrounds/wedding-1.jpg',
-  '/images/backgrounds/wedding-2.jpg',
-  '/images/backgrounds/wedding-3.jpg',
-  '/images/backgrounds/wedding-4.jpg',
-  '/images/backgrounds/wedding-5.jpg',
-  '/images/backgrounds/wedding-6.png',
+export const META_FILE = 'images.json'
+
+export const ELEMENT_TYPES = [
+  'floating-rocks',
+  'geometric',
+  'waves',
+  'particles',
+  'stars',
+  'butterflies',
+  'aurora',
+  'crystals',
+  'bubbles',
+  'lightning',
+  'fireflies',
+  'spirals',
 ]

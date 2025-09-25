@@ -4,11 +4,12 @@ import { useState, useLayoutEffect } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 
-import { BRAND_NAME } from '@/constants/common'
+import { BRAND_NAME, ELEMENT_TYPES } from '@/constants/common'
+import { Image as ImageType } from '@/types'
 
 interface BannerSlideProps {
   index: number
-  image: string
+  image: ImageType
 }
 
 const renderElements = (elements: string) => {
@@ -660,31 +661,16 @@ const renderElements = (elements: string) => {
   }
 }
 
-const elementTypes = [
-  'floating-rocks',
-  'geometric',
-  'waves',
-  'particles',
-  'stars',
-  'butterflies',
-  'aurora',
-  'crystals',
-  'bubbles',
-  'lightning',
-  'fireflies',
-  'spirals',
-]
-
 export default function BannerSlide({ index, image }: BannerSlideProps) {
   const [randomElement, setRandomElement] = useState<string>('')
 
   useLayoutEffect(() => {
-    const randomIndex = Math.floor(Math.random() * elementTypes.length)
-    setRandomElement(elementTypes[randomIndex])
+    const randomIndex = Math.floor(Math.random() * ELEMENT_TYPES.length)
+    setRandomElement(ELEMENT_TYPES[randomIndex])
 
     const interval = setInterval(() => {
-      const newRandomIndex = Math.floor(Math.random() * elementTypes.length)
-      setRandomElement(elementTypes[newRandomIndex])
+      const newRandomIndex = Math.floor(Math.random() * ELEMENT_TYPES.length)
+      setRandomElement(ELEMENT_TYPES[newRandomIndex])
     }, 10000)
 
     return () => clearInterval(interval)
@@ -695,7 +681,7 @@ export default function BannerSlide({ index, image }: BannerSlideProps) {
       {/* Background Image */}
       <div className='absolute inset-0'>
         <Image
-          src={image}
+          src={image.path || ''}
           alt={BRAND_NAME}
           className='object-cover'
           loading={index === 0 ? 'eager' : 'lazy'}
@@ -714,6 +700,24 @@ export default function BannerSlide({ index, image }: BannerSlideProps) {
           transition={{ duration: 1 }}
         >
           {renderElements(randomElement)}
+        </motion.div>
+      </div>
+
+      {/* Logo in top-left corner */}
+      <div className='absolute top-6 left-6 z-10'>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+        >
+          <Image
+            src='/logo-without-bg.png'
+            alt={BRAND_NAME}
+            width={120}
+            height={120}
+            className='object-contain'
+            priority={index === 0}
+          />
         </motion.div>
       </div>
     </div>

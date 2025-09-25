@@ -4,6 +4,7 @@ import './globals.css'
 import RightSocial from '@/components/right-social'
 import StructuredData from '@/components/seo/structured-data'
 import Analytics from '@/components/seo/analytics'
+import { Toaster } from '@/components/ui/sonner'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -106,6 +107,7 @@ export default function RootLayout({
         suppressHydrationWarning={true}
       >
         <Analytics />
+        <Toaster position='top-right' />
         {children}
         <RightSocial />
       </body>

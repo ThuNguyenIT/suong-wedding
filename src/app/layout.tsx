@@ -5,6 +5,7 @@ import RightSocial from '@/components/right-social'
 import StructuredData from '@/components/seo/structured-data'
 import Analytics from '@/components/seo/analytics'
 import { Toaster } from '@/components/ui/sonner'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -109,6 +110,7 @@ export default function RootLayout({
         <Analytics />
         <Toaster position='top-right' />
         {children}
+        <SpeedInsights />
         <RightSocial />
       </body>
     </html>

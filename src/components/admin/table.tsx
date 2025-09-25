@@ -160,9 +160,9 @@ function ImageComponent({
 
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-      <Card>
+      <Card className='overflow-hidden'>
         <CardHeader>
-          <div className='flex items-center justify-between'>
+          <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4'>
             <div className='flex items-center space-x-2'>
               {position === Position.Desktop ? (
                 <Monitor className='h-5 w-5 text-muted-foreground' />
@@ -175,7 +175,7 @@ function ImageComponent({
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.3, duration: 0.3 }}
-              className='flex gap-2'
+              className='flex gap-2 flex-wrap'
             >
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Button
@@ -218,28 +218,108 @@ function ImageComponent({
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.4 }}
           >
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className='w-[80px]'>ID</TableHead>
-                  <TableHead>Hình ảnh</TableHead>
-                  <TableHead>Link FB</TableHead>
-                  <TableHead className='w-[100px] text-center'>Trạng thái</TableHead>
-                  <TableHead className='w-[100px] text-center'>Thao tác</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <AnimatePresence>
-                  {listImage?.length ? (
-                    listImage.map((r, i) => (
+            <div className='overflow-x-auto'>
+              <Table className='min-w-[600px]'>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className='w-[80px] whitespace-nowrap'>ID</TableHead>
+                    <TableHead className='whitespace-nowrap'>Hình ảnh</TableHead>
+                    <TableHead className='whitespace-nowrap'>Link</TableHead>
+                    <TableHead className='w-[100px] text-center whitespace-nowrap'>Trạng thái</TableHead>
+                    <TableHead className='w-[100px] text-center whitespace-nowrap'>Thao tác</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  <AnimatePresence>
+                    {listImage?.length ? (
+                      listImage.map((r, i) => (
+                        <motion.tr
+                          key={r.id}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: 20 }}
+                          transition={{ duration: 0.3 }}
+                          layout
+                          className='border-b transition-colors hover:bg-muted/50'
+                        >
+                          <TableCell className='font-mono text-sm'>{r.id}</TableCell>
+                          <TableCell>
+                            <motion.div
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              transition={{ delay: 0.1, duration: 0.2 }}
+                              className='relative'
+                            >
+                              <Image
+                                src={r.path || ''}
+                                alt='preview'
+                                className='h-20 w-20 rounded-lg object-cover border'
+                                width={64}
+                                height={64}
+                                priority={i < 2}
+                              />
+                            </motion.div>
+                          </TableCell>
+                          <TableCell>
+                            <div className='w-full max-w-[200px] truncate' title={r.redirect_url || ''}>
+                              {r.redirect_url || ''}
+                            </div>
+                          </TableCell>
+                          <TableCell className='text-center'>
+                            <Button
+                              size='icon'
+                              onClick={() => handleToggleStatus(r.id)}
+                              className='w-full h-full'
+                              disabled={isPending}
+                            >
+                              {isPending ? (
+                                <Loader2 className='w-5 h-5 animate-spin text-gray-500' />
+                              ) : r.is_active ? (
+                                <CircleCheckBig className='w-5 h-5 text-green-500' />
+                              ) : (
+                                <CircleOff className='w-5 h-5 text-red-500' />
+                              )}
+                            </Button>
+                          </TableCell>
+                          <TableCell className='text-center'>
+                            <div className='flex gap-1'>
+                              <Button
+                                size='icon'
+                                onClick={() => handleDelete(r.id)}
+                                className='w-full h-full'
+                                disabled={isPending}
+                              >
+                                {isPending ? (
+                                  <Loader2 className='h-5 w-5 animate-spin text-gray-500' />
+                                ) : (
+                                  <Trash2 className='h-5 w-5 text-red-500' />
+                                )}
+                              </Button>
+                            </div>
+                          </TableCell>
+                        </motion.tr>
+                      ))
+                    ) : pending.length ? (
+                      <></>
+                    ) : (
+                      <motion.tr>
+                        <TableCell colSpan={5} className='text-center'>
+                          Không có dữ liệu
+                        </TableCell>
+                      </motion.tr>
+                    )}
+                  </AnimatePresence>
+
+                  <AnimatePresence>
+                    {pending.map((r) => (
                       <motion.tr
                         key={r.id}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: 20 }}
+                        className='bg-muted/30 border-b transition-colors hover:bg-muted/50'
+                        initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
                         transition={{ duration: 0.3 }}
                         layout
-                        className='border-b transition-colors hover:bg-muted/50'
                       >
                         <TableCell className='font-mono text-sm'>{r.id}</TableCell>
                         <TableCell>
@@ -247,26 +327,52 @@ function ImageComponent({
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
                             transition={{ delay: 0.1, duration: 0.2 }}
-                            className='relative'
                           >
-                            <Image
-                              src={r.path || ''}
-                              alt='preview'
-                              className='h-20 w-20 rounded-lg object-cover border'
-                              width={64}
-                              height={64}
-                              priority={i < 2}
-                            />
+                            {r.path ? (
+                              <Image
+                                src={r.path || ''}
+                                className='h-20 w-20 rounded-lg object-cover border'
+                                alt='preview'
+                                width={64}
+                                height={64}
+                              />
+                            ) : (
+                              <div className='h-20 w-20 border-2 border-dashed border-muted-foreground/25 rounded-lg flex items-center justify-center'>
+                                <Label htmlFor={`file-${r.id}`} className='cursor-pointer'>
+                                  <Upload className='h-6 w-6 text-muted-foreground' />
+                                </Label>
+                                <Input
+                                  id={`file-${r.id}`}
+                                  type='file'
+                                  className='hidden'
+                                  onChange={(e) => e.target.files?.[0] && handleFileChange(e.target.files[0], r.id)}
+                                  accept='image/*'
+                                />
+                              </div>
+                            )}
                           </motion.div>
                         </TableCell>
                         <TableCell>
-                          <div className='w-full'>{r.redirect_url || ''}</div>
+                          <Input
+                            placeholder='Nhập link FB...'
+                            value={r.redirect_url || ''}
+                            onChange={(e) =>
+                              setPending((prev) =>
+                                prev.map((x) => (x.id === r.id ? { ...x, redirect_url: e.target.value } : x))
+                              )
+                            }
+                            className='w-full min-w-[150px]'
+                          />
                         </TableCell>
-                        <TableCell className='text-center'>
+                        <TableCell>
                           <Button
                             size='icon'
-                            onClick={() => handleToggleStatus(r.id)}
-                            className='w-full h-full'
+                            onClick={() =>
+                              setPending((prev) =>
+                                prev.map((x) => (x.id === r.id ? { ...x, is_active: !x.is_active } : x))
+                              )
+                            }
+                            className='w-full'
                             disabled={isPending}
                           >
                             {isPending ? (
@@ -278,137 +384,35 @@ function ImageComponent({
                             )}
                           </Button>
                         </TableCell>
-                        <TableCell className='text-center'>
+                        <TableCell>
                           <div className='flex gap-1'>
+                            <Button size='icon' onClick={() => handleCommit(r)} className='gap-1' disabled={isPending}>
+                              {isPending ? (
+                                <Loader2 className='h-5 w-5 animate-spin text-gray-500' />
+                              ) : (
+                                <Check className='h-5 w-5 text-green-500' />
+                              )}
+                            </Button>
                             <Button
                               size='icon'
-                              onClick={() => handleDelete(r.id)}
-                              className='w-full h-full'
+                              onClick={() => handleDelete(r.id, true)}
+                              className='gap-1'
                               disabled={isPending}
                             >
                               {isPending ? (
                                 <Loader2 className='h-5 w-5 animate-spin text-gray-500' />
                               ) : (
-                                <Trash2 className='h-5 w-5 text-red-500' />
+                                <X className='h-5 w-5 text-red-500' />
                               )}
                             </Button>
                           </div>
                         </TableCell>
                       </motion.tr>
-                    ))
-                  ) : pending.length ? (
-                    <></>
-                  ) : (
-                    <motion.tr>
-                      <TableCell colSpan={5} className='text-center'>
-                        Không có dữ liệu
-                      </TableCell>
-                    </motion.tr>
-                  )}
-                </AnimatePresence>
-
-                <AnimatePresence>
-                  {pending.map((r) => (
-                    <motion.tr
-                      key={r.id}
-                      className='bg-muted/30 border-b transition-colors hover:bg-muted/50'
-                      initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                      transition={{ duration: 0.3 }}
-                      layout
-                    >
-                      <TableCell className='font-mono text-sm'>{r.id}</TableCell>
-                      <TableCell>
-                        <motion.div
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          transition={{ delay: 0.1, duration: 0.2 }}
-                        >
-                          {r.path ? (
-                            <Image
-                              src={r.path || ''}
-                              className='h-20 w-20 rounded-lg object-cover border'
-                              alt='preview'
-                              width={64}
-                              height={64}
-                            />
-                          ) : (
-                            <div className='h-20 w-20 border-2 border-dashed border-muted-foreground/25 rounded-lg flex items-center justify-center'>
-                              <Label htmlFor={`file-${r.id}`} className='cursor-pointer'>
-                                <Upload className='h-6 w-6 text-muted-foreground' />
-                              </Label>
-                              <Input
-                                id={`file-${r.id}`}
-                                type='file'
-                                className='hidden'
-                                onChange={(e) => e.target.files?.[0] && handleFileChange(e.target.files[0], r.id)}
-                                accept='image/*'
-                              />
-                            </div>
-                          )}
-                        </motion.div>
-                      </TableCell>
-                      <TableCell>
-                        <Input
-                          placeholder='Nhập link FB...'
-                          value={r.redirect_url || ''}
-                          onChange={(e) =>
-                            setPending((prev) =>
-                              prev.map((x) => (x.id === r.id ? { ...x, redirect_url: e.target.value } : x))
-                            )
-                          }
-                          className='w-full'
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <Button
-                          size='icon'
-                          onClick={() =>
-                            setPending((prev) =>
-                              prev.map((x) => (x.id === r.id ? { ...x, is_active: !x.is_active } : x))
-                            )
-                          }
-                          className='w-full'
-                          disabled={isPending}
-                        >
-                          {isPending ? (
-                            <Loader2 className='w-5 h-5 animate-spin text-gray-500' />
-                          ) : r.is_active ? (
-                            <CircleCheckBig className='w-5 h-5 text-green-500' />
-                          ) : (
-                            <CircleOff className='w-5 h-5 text-red-500' />
-                          )}
-                        </Button>
-                      </TableCell>
-                      <TableCell>
-                        <div className='flex gap-1'>
-                          <Button size='icon' onClick={() => handleCommit(r)} className='gap-1' disabled={isPending}>
-                            {isPending ? (
-                              <Loader2 className='h-5 w-5 animate-spin text-gray-500' />
-                            ) : (
-                              <Check className='h-5 w-5 text-green-500' />
-                            )}
-                          </Button>
-                          <Button
-                            size='icon'
-                            onClick={() => handleDelete(r.id, true)}
-                            className='gap-1'
-                            disabled={isPending}
-                          >
-                            {isPending ? (
-                              <Loader2 className='h-5 w-5 animate-spin text-gray-500' />
-                            ) : (
-                              <X className='h-5 w-5 text-red-500' />
-                            )}
-                          </Button>
-                        </div>
-                      </TableCell>
-                    </motion.tr>
-                  ))}
-                </AnimatePresence>
-              </TableBody>
-            </Table>
+                    ))}
+                  </AnimatePresence>
+                </TableBody>
+              </Table>
+            </div>
           </motion.div>
         </CardContent>
       </Card>

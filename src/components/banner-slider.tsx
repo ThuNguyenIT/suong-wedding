@@ -19,8 +19,6 @@ export default function BannerSlider({ images }: { images: Image[] }) {
     [images, position]
   )
 
-  console.log('listImages', listImages)
-
   const Slider = isMobile ? BannerSlideMobile : BannerSlide
 
   return (

@@ -27,8 +27,6 @@ const ImageComponent = memo(function ImageComponent({ position, banners, onRefre
     onRefresh?.()
   }, [onRefresh])
 
-  console.log('activeImages', position, position, activeImages)
-
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
       <Card className='overflow-hidden'>

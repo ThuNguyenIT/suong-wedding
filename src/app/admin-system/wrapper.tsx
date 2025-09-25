@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useTransition } from 'react'
+import { useState, useTransition, useEffect } from 'react'
 import { ImageTable } from '@/components/admin/table'
 import { getImagesAction } from '@/app/actions'
 import { Image as ImageMeta } from '@/types'
@@ -10,8 +10,12 @@ interface WrapperProps {
 }
 
 export function Wrapper({ initialImages }: WrapperProps) {
-  const [images, setImages] = useState<ImageMeta[]>(initialImages)
+  const [images, setImages] = useState<ImageMeta[]>([])
   const [isPending, startTransition] = useTransition()
+
+  useEffect(() => {
+    setImages(initialImages)
+  }, [initialImages])
 
   const handleRefresh = async () => {
     startTransition(async () => {

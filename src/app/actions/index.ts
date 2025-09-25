@@ -1,6 +1,7 @@
 'use server'
 
 import { put, del } from '@vercel/blob'
+import { revalidatePath } from 'next/cache'
 import { supabase } from '@/lib/supabase'
 
 import { Image as ImageMeta } from '@/types'
@@ -39,6 +40,10 @@ export async function addImageAction(image: ImageMeta) {
       throw new Error(`Failed to add image: ${error.message}`)
     }
 
+    // Revalidate trang chủ để cập nhật banner
+    revalidatePath('/')
+    revalidatePath('/admin-system')
+
     return data
   } catch (error) {
     console.error('❌ Error adding image:', error)
@@ -66,6 +71,9 @@ export async function toggleImageAction(id: number) {
       console.error('❌ Supabase error:', error)
       throw new Error(`Failed to toggle image: ${error.message}`)
     }
+
+    revalidatePath('/')
+    revalidatePath('/admin-system')
 
     return data
   } catch (error) {
@@ -102,6 +110,9 @@ export async function deleteImageAction(id: number) {
       throw new Error(`Failed to delete image: ${error.message}`)
     }
 
+    revalidatePath('/')
+    revalidatePath('/admin-system')
+
     return id
   } catch (error) {
     console.error('❌ Error deleting image:', error)
@@ -117,6 +128,9 @@ export async function updateImageAction(id: number, updates: Partial<ImageMeta>)
       console.error('❌ Supabase error:', error)
       throw new Error(`Failed to update image: ${error.message}`)
     }
+
+    revalidatePath('/')
+    revalidatePath('/admin-system')
 
     return data
   } catch (error) {
@@ -143,7 +157,11 @@ export async function getImagesAction(): Promise<ImageMeta[]> {
 
 export async function getImagesActiveAction(): Promise<ImageMeta[]> {
   try {
-    const { data, error } = await supabase.from('images').select('*').eq('is_active', true).order('created_at', { ascending: false })
+    const { data, error } = await supabase
+      .from('images')
+      .select('*')
+      .eq('is_active', true)
+      .order('created_at', { ascending: false })
 
     if (error) {
       console.error('❌ Supabase error:', error)

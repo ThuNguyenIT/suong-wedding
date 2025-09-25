@@ -140,3 +140,19 @@ export async function getImagesAction(): Promise<ImageMeta[]> {
     throw new Error('Failed to get images')
   }
 }
+
+export async function getImagesActiveAction(): Promise<ImageMeta[]> {
+  try {
+    const { data, error } = await supabase.from('images').select('*').eq('is_active', true).order('created_at', { ascending: false })
+
+    if (error) {
+      console.error('❌ Supabase error:', error)
+      throw new Error(`Failed to fetch images: ${error.message}`)
+    }
+
+    return data || []
+  } catch (error) {
+    console.error('❌ Error getting images:', error)
+    throw new Error('Failed to get images')
+  }
+}

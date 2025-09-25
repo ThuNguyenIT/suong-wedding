@@ -15,9 +15,11 @@ export default function BannerSlider({ images }: { images: Image[] }) {
   const position = isMobile ? Position.Mobile : Position.Desktop
 
   const listImages = useMemo(
-    () => images.filter((image) => image.is_active && image.position === position),
+    () => images.filter((image) => image.position === position),
     [images, position]
   )
+
+  console.log('listImages', listImages)
 
   const Slider = isMobile ? BannerSlideMobile : BannerSlide
 

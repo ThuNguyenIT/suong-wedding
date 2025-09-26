@@ -711,19 +711,13 @@ export default function BannerSlide({ index, image }: BannerSlideProps) {
           transition={{ duration: 0.8, delay: 0.5 }}
           className='relative'
         >
-          {/* Background circle with gradient fade */}
-          <div
-            className='absolute inset-0 w-[160px] h-[160px] -top-[20px] -left-[20px] rounded-full'
-            style={{
-              background:
-                'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0.75) 25%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0.25) 75%, rgba(255,255,255,0.1) 100%)',
-            }}
-          ></div>
+          {/* Background circle with black transparency */}
+          <div className='absolute inset-0 rounded-full bg-black/60'></div>
           <Image
             src='/logo-without-bg.png'
             alt={BRAND_NAME}
-            width={120}
-            height={120}
+            width={64}
+            height={64}
             className='object-contain relative z-10'
             priority={index === 0}
           />

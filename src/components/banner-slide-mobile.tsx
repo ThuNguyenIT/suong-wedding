@@ -598,19 +598,13 @@ export default function BannerSlideMobile({ index, image }: BannerSlideMobilePro
           }}
           className='relative'
         >
-          {/* Background circle with gradient fade */}
-          <div
-            className='absolute inset-0 w-[120px] h-[120px] -top-[10px] -left-[10px] rounded-full'
-            style={{
-              background:
-                'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0.75) 25%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0.25) 75%, rgba(255,255,255,0.1) 100%)',
-            }}
-          ></div>
+          {/* Background circle with black transparency */}
+          <div className='absolute inset-0 rounded-full bg-black/60'></div>
           <Image
             src='/logo-without-bg.png'
             alt={BRAND_NAME}
-            width={100}
-            height={100}
+            width={64}
+            height={64}
             className='object-contain relative z-10'
             priority={index === 0}
           />

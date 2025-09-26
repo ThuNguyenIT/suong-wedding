@@ -6,7 +6,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { Button } from '@/components/ui/button'
 import { useIsMobile } from '@/hooks'
 import { cn } from '@/lib/utils'
-import { ADDRESS_MAP, BRAND_NAME, FACEBOOK_URL, MOBILE_NUMBER } from '@/constants/common'
+import { ADDRESS_MAP, BRAND_NAME, FACEBOOK_URL, MOBILE_NUMBER, ZALO_URL } from '@/constants/common'
 
 export default function RightSocial() {
   const isMobile = useIsMobile()
@@ -28,6 +28,13 @@ export default function RightSocial() {
       alt: 'Facebook',
       url: FACEBOOK_URL,
       tooltip: `Chat với ${BRAND_NAME} qua Facebook`,
+      handleClick: (url: string) => window.open(url, '_blank'),
+    },
+    {
+      src: '/svg/zalo.svg',
+      alt: 'Zalo',
+      url: ZALO_URL,
+      tooltip: `Chat với ${BRAND_NAME} qua Zalo`,
       handleClick: (url: string) => window.open(url, '_blank'),
     },
     {

@@ -4,6 +4,8 @@ export const MOBILE_NUMBER = '0359998753'
 
 export const FACEBOOK_URL = 'https://www.facebook.com/suongwedding'
 
+export const ZALO_URL = 'https://zalo.me/0359998753'
+
 export const ADDRESS_MAP = 'https://maps.app.goo.gl/nEAzGY4CpbURRanbA'
 
 export const META_FILE = 'images.json'

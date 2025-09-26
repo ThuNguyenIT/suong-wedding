@@ -588,7 +588,7 @@ export default function BannerSlideMobile({ index, image }: BannerSlideMobilePro
       </div>
 
       {/* Logo in top-left corner */}
-      <div className='absolute top-4 left-4 z-10'>
+      <div className='absolute top-4 left-8 z-10'>
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -596,13 +596,22 @@ export default function BannerSlideMobile({ index, image }: BannerSlideMobilePro
             duration: shouldReduceMotion ? 0.3 : 0.8,
             delay: shouldReduceMotion ? 0 : 0.5,
           }}
+          className='relative'
         >
+          {/* Background circle with gradient fade */}
+          <div
+            className='absolute inset-0 w-[120px] h-[120px] -top-[10px] -left-[10px] rounded-full'
+            style={{
+              background:
+                'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0.75) 25%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0.25) 75%, rgba(255,255,255,0.1) 100%)',
+            }}
+          ></div>
           <Image
             src='/logo-without-bg.png'
             alt={BRAND_NAME}
-            width={80}
-            height={80}
-            className='object-contain'
+            width={100}
+            height={100}
+            className='object-contain relative z-10'
             priority={index === 0}
           />
         </motion.div>

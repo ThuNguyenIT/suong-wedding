@@ -174,3 +174,18 @@ export async function getImagesActiveAction(): Promise<ImageMeta[]> {
     throw new Error('Failed to get images')
   }
 }
+
+export async function verifyAdminKeyAction(key: string): Promise<boolean> {
+  try {
+    const expectedKey = process.env.NEXT_PUBLIC_PRIMARY_KEY
+
+    if (!key || key !== expectedKey) {
+      return false
+    }
+
+    return true
+  } catch (error) {
+    console.error('❌ Error verifying admin key:', error)
+    return false
+  }
+}

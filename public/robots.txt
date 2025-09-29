@@ -8,7 +8,7 @@ Disallow: /static/
 Disallow: /private/
 
 # Host
-Host: https://suongwedding.com
+Host: https://suong.makeup
 
 # Sitemaps
-Sitemap: https://suongwedding.com/sitemap.xml
+Sitemap: https://suong.makeup/sitemap.xml

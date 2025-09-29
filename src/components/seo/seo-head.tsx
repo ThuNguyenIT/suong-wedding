@@ -81,7 +81,7 @@ export default function SEOHead({
 
       {/* Business/Contact Info */}
       <meta name='contact' content='0359998753' />
-      <meta name='reply-to' content='info@suongwedding.com' />
+      <meta name='reply-to' content='info@suong.makeup' />
       <meta name='owner' content='Sương Wedding' />
       <meta name='url' content={baseUrl} />
       <meta name='identifier-URL' content={baseUrl} />
